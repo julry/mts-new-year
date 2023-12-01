@@ -1,0 +1,65 @@
+@font-face {
+    font-family: 'MTSText';
+    src: local('MTSText'), local('MTS-Text'),
+    url('./assets/fonts/MTSText/MTSText-Bold.ttf') format('truetype'),
+    url('./assets/fonts/MTSText/MTSText-Bold.eot') format('embedded-opentype'),
+    url('./assets/fonts/MTSText/MTSText-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./assets/fonts/MTSText/MTSText-Bold.otf') format('opentype'),
+    url('./assets/fonts/MTSText/MTSText-Bold.woff') format('woff'),
+    url('./assets/fonts/MTSText/MTSText-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MTSText';
+    src: local('MTSText'), local('MTS-Text'),
+    url('./assets/fonts/MTSText/MTSText-Medium.ttf') format('truetype'),
+    url('./assets/fonts/MTSText/MTSText-Medium.eot') format('embedded-opentype'),
+    url('./assets/fonts/MTSText/MTSText-Medium.eot?#iefix') format('embedded-opentype'),
+    url('./assets/fonts/MTSText/MTSText-Medium.otf') format('opentype'),
+    url('./assets/fonts/MTSText/MTSText-Medium.woff') format('woff'),
+    url('./assets/fonts/MTSText/MTSText-Medium.woff2') format('woff2');
+    font-weight: 700;
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MTSText';
+    src: local('MTSText'), local('MTS-Text'),
+    url('./assets/fonts/MTSText/MTSText-Regular.ttf') format('truetype'),
+    url('./assets/fonts/MTSText/MTSText-Regular.eot') format('embedded-opentype'),
+    url('./assets/fonts/MTSText/MTSText-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./assets/fonts/MTSText/MTSText-Regular.otf') format('opentype'),
+    url('./assets/fonts/MTSText/MTSText-Regular.woff') format('woff'),
+    url('./assets/fonts/MTSText/MTSText-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MTSWide';
+    src: local('MTSWide'), local('MTS-Wide'),
+    url('./assets/fonts/MTSWide/MTSWide-Bold.ttf') format('truetype'),
+    url('./assets/fonts/MTSWide/MTSWide-Bold.eot') format('embedded-opentype'),
+    url('./assets/fonts/MTSWide/MTSWide-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./assets/fonts/MTSWide/MTSWide-Bold.otf') format('opentype'),
+    url('./assets/fonts/MTSWide/MTSWide-Bold.woff') format('woff'),
+    url('./assets/fonts/MTSWide/MTSWide-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MTSCompact';
+    src: local('MTSCompact'), local('MTS-Compact'),
+    url('./assets/fonts/MTSCompact/MTSCompact-Regular.ttf') format('truetype'),
+    url('./assets/fonts/MTSCompact/MTSCompact-Regular.eot') format('embedded-opentype'),
+    url('./assets/fonts/MTSCompact/MTSCompact-Regular.eot?#iefix') format('embedded-opentype'),
+    url('./assets/fonts/MTSCompact/MTSCompact-Regular.otf') format('opentype'),
+    url('./assets/fonts/MTSCompact/MTSCompact-Regular.woff') format('woff'),
+    url('./assets/fonts/MTSCompact/MTSCompact-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
