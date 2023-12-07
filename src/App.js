@@ -11,15 +11,15 @@ const Wrapper = styled(FlexWrapper)`
   white-space: pre-line;
 
   @media screen and (min-width: 640px) and (max-height: 800px) {
-    --screen_padding: 18px;
+    --screen_padding: 22px;
   }
   
   @media screen and (min-width: 640px) and (max-height: 700px) {
-    --screen_padding: 14px;
+    --screen_padding: 16px;
   }
   
   @media screen and (max-width: 300px) {
-    --screen_padding: 3.3vw;
+    --screen_padding: 4.3vw;
   }
 `;
 

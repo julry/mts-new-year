@@ -4,46 +4,91 @@ import { useProgress } from "../../../hooks/useProgress";
 import { getArray } from "../../../utils/getArray";
 import { openCompanyLink } from "../../../utils/openCompanyLink";
 import { ButtonCentered } from "../../shared/button";
+import { CommonText } from "../../shared/common-text";
 import { FlexWrapper } from "../../shared/flex-wrapper";
-import { CELLS_AMOUNT, TOTAL_TRIES_AMOUNT, TRIES_AMOUNT } from "./constants";
+import { Cell } from "../../shared/cell";
+import { ADDITIONAL_TRIES_AMOUNT, ANSWER, CELLS_AMOUNT, MESSAGES, TRIES_AMOUNT } from "./constants";
 import { Game } from "./game";
+import { getAllIndexes, getAllObjectIndexes } from "../../../utils/getAllIndexes";
 
 
 const Wrapper = styled(FlexWrapper)`
     width: 100%;
     height: 100%;
+    --cellWidth: 45px;
+
+    @media screen and (max-width: 340px) {
+        --cellWidth: 40px;
+    }
+
+    @media screen and (max-width: 300px) {
+        --cellWidth: 35px;
+    }
 `;
 
 const ButtonStyled = styled(ButtonCentered)`
-    margin-top: auto;
+    margin-top: calc(var(--screen_padding) * 2 / 3);
 `;
 
-const Rules = styled.div`
+
+const RulesWrapper = styled.div`
     position: absolute;
     inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+`;
+
+const RulesText = styled(CommonText)`
+    padding: 0 calc(var(--screen_padding) * 2 / 3);
+`;
+
+const RulesCell = styled(Cell)`
+    background: ${({background}) => background ?? '#F2F3F7'};
+    & + & {
+        margin-left: 5px;
+    }
+`;
+
+const Rules = styled(FlexWrapper)`
+    position: absolute;
+    background: white;
+    color: #626C77;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    width: calc(100% - var(--screen_padding) * 2 / 3);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border-radius: calc(var(--screen_padding) * 4 / 3);
+    padding: calc(var(--screen_padding) * 4 / 3) calc(var(--screen_padding) * 5 / 6) calc(var(--screen_padding) * 5 / 6);
+`;
+
+const ExampleRow = styled.div`
+    display: flex;
+    margin: calc(var(--screen_padding) * 4 / 3) 0;
 `;
 
 export const Screen2 = () => {
     const { next } = useProgress();
 
-    const [isRules, setIsRules] = useState(true);
+    const [isRules, setIsRules] = useState(false);
     const [isFirstRules, setIsFirstRules] = useState(true);
-    const [isFirstTry, setIsFirstTry] = useState(true);
-    const [isIncorrect, setIsIncorrect] = useState(false);
+    const [incorrect, setIncorrect] = useState({shown: false});
     const [isAllIncorrect, setIsAllIncorrect] = useState(false);
+    const [isAdditional, setIsAdditional] = useState(false);
 
-    const isBlurred = useMemo(() => isRules || isIncorrect || isAllIncorrect, [isRules, isIncorrect, isAllIncorrect]);
+    const isBlurred = useMemo(() => isRules || incorrect.shown || isAllIncorrect, [isRules, incorrect.shown, isAllIncorrect]);
     const initialTries = useMemo(() => [...getArray(TRIES_AMOUNT, getArray(CELLS_AMOUNT, ''))],[]);
+    const initialAddTries = useMemo(() => [...getArray(ADDITIONAL_TRIES_AMOUNT, getArray(CELLS_AMOUNT, ''))],[]);
     
-    const [tries, setTries] = useState(initialTries);
-    const [totalTries, setTotalTries] = useState(TOTAL_TRIES_AMOUNT);
+    const [tries, setTries] = useState({main: initialTries, additional: initialAddTries});
     const [currentTry, setCurrentTry] = useState(0);
     const [currentNumId, setCurrentNumId] = useState(0);
+    const [availableMessages, setAvailableMessages] = useState(MESSAGES);
 
+    const triesName = useMemo(() => isAdditional ? 'additional' : 'main', [isAdditional]);
     const isDoneBtnActive = useMemo(() => (
-        tries[currentTry].filter(tr => typeof (tr.num) === 'number').length === tries[currentTry].length
-    ), [tries, currentTry]);
-
+        tries[triesName][currentTry].filter(tr => typeof (tr.num) === 'number').length === tries[triesName][currentTry].length
+    ), [tries, triesName, currentTry]);
 
     const handleCloseRules = () => {
         if (isFirstRules) setIsFirstRules(false);
@@ -52,71 +97,104 @@ export const Screen2 = () => {
     };
 
     const handleRestart = () => {
+        setIsAdditional(false);
+        setIncorrect({shown: false});
         setIsAllIncorrect(false);
-        setIsFirstTry(false);
+        setAvailableMessages(MESSAGES);
+        setTries({main: initialTries, additional: initialAddTries});
+        setCurrentTry(0);
+        setCurrentNumId(0);
     };
 
     const onChooseNumber = (num) => {
         let id = currentNumId;
         if (id + 1 > CELLS_AMOUNT) return;
-        const newTries = [...tries];
+        const newTries = [...tries[triesName]];
         const newLine = [...newTries[currentTry]];
         newLine[id] = {num};
         newTries[currentTry] = newLine;
-        setTries([...newTries]);
+        setTries(prev => ({...prev, [triesName]: [...newTries]}));
         setCurrentNumId(() => id + 1);
     };
 
+    const handleOpenIncorrect = useCallback(() => {
+        const index = Math.floor((availableMessages.length - 1) * Math.random());
+        setIncorrect({shown: true, index})
+    }, [availableMessages, setIncorrect]);
+
+    const handleCloseIncorrect = useCallback(() => {
+        setAvailableMessages(mes => 
+            (mes.filter((_, i) => i !== incorrect.index).length > 0 ? mes.filter((_, i) => i !== incorrect.index) : MESSAGES)
+        );
+        setIncorrect({shown: false});
+    }, [setAvailableMessages, incorrect, setIncorrect]);
+
+
     const onAcceptTry = useCallback(() => {
         if (!isDoneBtnActive) return;
-        const newTries = [...tries];
-        const newLine = [...tries[currentTry]];
-				const correctNums = [];
-				const colored = newLine.map((n, i) => {
+        const newTries = [...tries[triesName]];
+        const newLine = [...newTries[currentTry]];
+        const correctNums = [];
+        newTries[currentTry] = newLine.reduce((coloredArr, n, i) => {
             let bg;
             let correct = false;
-            // if (ANSWER.includes(n.num)) {
-            //     if (ANSWER.indexOf(n.num) === i) {
-            //         bg = colors.purple;
-            //         correct = true;
-			// 							correctNums.push(n.num);
-            //     } else if (newLine.findIndex(num => num.num === n.num) === i) bg = colors.yellow;
-            // }
-            return ({...n, bg, correct});
-        });
+            if (ANSWER.includes(n.num)) {
+                if (getAllIndexes(ANSWER, n.num).includes(i)) {
+                    bg = 'var(--main_red)';
+                    correct = true;
+                    correctNums.push(n.num);
+                } else if (
+                    getAllObjectIndexes(newLine, 'num', n.num).includes(i) 
+                    && ANSWER.filter(number => number === n.num).length > coloredArr.filter(({ num }) => num === n.num).length
+                ) {
+                    bg = '#45B6FC';
+                }
+            }
+            return [...coloredArr, ({...n, bg, correct})];
+        }, []).map(n => 
+            (correctNums.filter((num ) => num === n.num).length === ANSWER.filter(number => number === n.num).length 
+                && !n.correct ? ({...n, bg: undefined}) : n)
+        );
 
-        newTries[currentTry] = colored
-            .map(n => (correctNums.includes(n.num) && !n.correct) ? ({...n, bg: null}) : n);
-
-        setTries([...newTries]);
+        setTries(prev => ({...prev, [triesName]: [...newTries]}));
         if (newTries[currentTry].filter(num => !!num.correct).length === newTries[currentTry].length) {
             next();
 
             return;
         }
-        if (currentTry + 1 === tries.length) {
-            if (totalTries > 1) {
-                setTimeout(() => {
-                    if (isFirstTry) setIsIncorrect();
-                }, 500);
-            } else {
+
+        setTimeout(() => {
+            handleOpenIncorrect();
+        }, 500);
+
+        if (currentTry + 1 === tries[triesName].length) {
+            if (isAdditional){
+                handleCloseIncorrect();
                 setIsAllIncorrect(true);
+                return;
             }
+
+            setTimeout(() => {
+                setIsAdditional(true);
+                setCurrentNumId(0);
+                setCurrentTry(0);
+            }, 500);
+            
             return;
         }
         setCurrentNumId(0);
         setCurrentTry(id => id + 1);
-    }, []);
+    }, [currentTry, isAdditional, isDoneBtnActive, next, tries, triesName, handleCloseIncorrect, handleOpenIncorrect]);
 
     const onDelete = useCallback(() => {
         if (currentNumId - 1 < 0) return;
-        const newTries = [...tries];
-        const newLine = [...tries[currentTry]];
+        const newTries = [...tries[triesName]];
+        const newLine = [...newTries[currentTry]];
         newLine[currentNumId - 1] = {num: ''};
         newTries[currentTry] = newLine;
-        setTries([...newTries]);
+        setTries(prev => ({...prev, [triesName]: [...newTries]}));
         setCurrentNumId(numId => --numId);
-    }, [tries, currentTry, currentNumId]);
+    }, [currentNumId, tries, currentTry, triesName]);
 
     return (
         <Wrapper>
@@ -126,44 +204,51 @@ export const Screen2 = () => {
                 onChooseNumber={onChooseNumber}
                 onAcceptTry={onAcceptTry}
                 onDelete={onDelete}
-                tries={tries}
+                tries={tries[triesName]}
                 isDoneBtnActive={isDoneBtnActive}
             />
             {isRules && (
-                <Rules>
-                    <p>
-                    <b>Введи 6 цифр</b> предполагаемого индекса и нажми «Проверить».{' '}
-                    Если цифра верная и на своём месте, то [на ячейке появится] <b>[горящая лампочка.]</b>{' '}
-                    Если цифра верная, но стоит не там — [появится] <b>[потухшая лампочка.]</b>
-                    <br/>
-                    У тебя <b>5 попыток</b>— отгадай индекс целиком!
-                    </p>
-                    <ButtonCentered onClick={handleCloseRules}>{isFirstRules ? 'Начать' : 'Понятно'}</ButtonCentered>
-                </Rules>
+                <RulesWrapper>
+                    <Rules>
+                        <RulesText>
+                            Введи 6 цифр предполагаемого индекса и нажми «Проверить».{'\n'}
+                            Если цифра верная и на своём месте, то ячейка станет красной.{'\n'}
+                            Если цифра верная, но стоит не там — голубой.{'\n'}{'\n'}
+                            У тебя 5 попыток — отгадай{'\n'}индекс целиком!
+                        </RulesText>
+                        <ExampleRow>
+                            <RulesCell>0</RulesCell>
+                            <RulesCell>1</RulesCell>
+                            <RulesCell background="var(--main_red)">2</RulesCell>
+                            <RulesCell>3</RulesCell>
+                            <RulesCell background="#45B6FC">4</RulesCell>
+                            <RulesCell>5</RulesCell>
+                        </ExampleRow>
+                        <ButtonStyled onClick={handleCloseRules}>{isFirstRules ? 'Начать' : 'Понятно'}</ButtonStyled>
+                    </Rules>
+                </RulesWrapper>
             )}
-            {isIncorrect && (
+            {incorrect.shown && (
                 <Rules>
-                    <p>
-                        Мы видели, у тебя почти получилось! Цифр много, и очень сложно выбрать правильную.{' '}
-                        Возможно стоит с кем‑нибудь посоветоваться? У нас в МТС тоже много профессий,{' '}
-                        но сделать правильный выбор всегда поможет карьерный консультант.
-                    </p>
-                    <ButtonCentered onClick={() => setIsIncorrect(false)}>Продолжить</ButtonCentered>
+                    <CommonText>
+                        {availableMessages[incorrect.index]}
+                    </CommonText>
+                    <ButtonStyled onClick={handleCloseIncorrect}>Продолжить</ButtonStyled>
                 </Rules>
             )}
             {isAllIncorrect && (
                 <Rules>
-                    <p>
+                    <CommonText>
                     Ох-ох-ох…{'\n'}Ты очень близко к разгадке!
-                    </p>
-                    <ButtonCentered onClick={handleRestart}>Попробовать снова</ButtonCentered>
-                    <p>
+                    </CommonText>
+                    <ButtonStyled onClick={handleRestart}>Попробовать снова</ButtonStyled>
+                    <CommonText>
                         Не обязательно ждать волшебства от Деда Мороза, ведь ты можешь создать его самостоятельно — в МТС!
                         <br/>
                         Делай первые шаги к своей мечте вместе с крутой командой уже сейчас, и тогда 
                         наступающий год точно принесёт тебе много приятных сюрпризов!
-                    </p>
-                    <ButtonCentered onClick={openCompanyLink}>Хочу в мтс</ButtonCentered>
+                    </CommonText>
+                    <ButtonStyled onClick={openCompanyLink}>Хочу в мтс</ButtonStyled>
                 </Rules>
             )}
         </Wrapper>

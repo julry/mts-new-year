@@ -5,6 +5,11 @@ const TYPE_TO_COLOR = {
     secondary: 'black'
 };
 
+const TYPE_TO_DISABLED = {
+    main: 'rgba(255, 0, 50, 0.6)',
+    secondary: 'rgba(242 243 247, 0.6);'
+};
+
 export const Wrapper = styled.button`
     color: ${({$type}) => TYPE_TO_COLOR[$type]};
     background: var(--main_${({$type}) => $type === 'main' ? 'red' : 'gray'});
@@ -16,7 +21,7 @@ export const Wrapper = styled.button`
     font-size: 12px;
 
     &:disabled {
-        opacity: 0.6;
+        background-color: ${({$type}) => TYPE_TO_DISABLED[$type]};  
     }
 `;
 

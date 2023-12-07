@@ -20,7 +20,6 @@
     url('./assets/fonts/MTSText/MTSText-Medium.otf') format('opentype'),
     url('./assets/fonts/MTSText/MTSText-Medium.woff') format('woff'),
     url('./assets/fonts/MTSText/MTSText-Medium.woff2') format('woff2');
-    font-weight: 700;
     font-weight: 500;
     font-style: normal;
 }
@@ -50,6 +49,20 @@
     font-weight: 700;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'MTSWide';
+    src: local('MTSWide'), local('MTS-Wide'),
+    url('./assets/fonts/MTSWide/MTSWide-Medium.ttf') format('truetype'),
+    url('./assets/fonts/MTSWide/MTSWide-Medium.eot') format('embedded-opentype'),
+    url('./assets/fonts/MTSWide/MTSWide-Medium.eot?#iefix') format('embedded-opentype'),
+    url('./assets/fonts/MTSWide/MTSWide-Medium.otf') format('opentype'),
+    url('./assets/fonts/MTSWide/MTSWide-Medium.woff') format('woff'),
+    url('./assets/fonts/MTSWide/MTSWide-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}
+
 
 @font-face {
     font-family: 'MTSCompact';

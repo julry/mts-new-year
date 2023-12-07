@@ -6,7 +6,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   --main_red: #FF0032;
   --main_gray: #F2F3F7;
-  --screen_padding: min(20px, 5.3vw);
+  --screen_padding: min(24px, 6.4vw);
 }
 
 code {
