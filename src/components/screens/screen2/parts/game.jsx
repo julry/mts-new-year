@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import bg from '../../../assets/images/bg.png';
-import { getArray } from "../../../utils/getArray";
-import { Button } from "../../shared/button";
-import { FlexWrapper } from "../../shared/flex-wrapper";
-import { Cell } from "../../shared/cell";
+import bg from '../../../../assets/images/bg.png';
+import { getArray } from "../../../../utils/getArray";
+import { Button } from "../../../shared/button";
+import { FlexWrapper } from "../../../shared/flex-wrapper";
+import { Cell } from "../../../shared/cell";
+import { CommonText } from "../../../shared/common-text";
 
 const Content = styled(FlexWrapper)`
     width: 100%;
@@ -42,6 +43,11 @@ const ButtonsWrapper = styled.div`
 const ButtonCell = styled(Cell)`
     background-color: rgba(255,255,255,0.9);
 
+    p {
+        touch-action: none;
+        pointer-events: none;
+    }
+    
     & + & {
         margin-left: 5px;
     }
@@ -97,7 +103,13 @@ const GameLines = styled.div`
     margin: calc(var(--screen_padding) * 33 / 12) auto calc(var(--screen_padding) * 11 / 12);
 `;
 
-export const Game = ({isBlurred, onRulesClick, tries, onChooseNumber, onAcceptTry, onDelete, isDoneBtnActive}) => {
+const AdditionalText = styled(CommonText)`
+    text-align: center;
+    color: #1D2023;
+    margin-bottom: calc(var(--screen_padding) * 4 / 3);
+`;
+
+export const Game = ({isBlurred, onRulesClick, tries, onChooseNumber, onAcceptTry, onDelete, isDoneBtnActive, isAdditional}) => {
     const numbers = getArray(10, (a, i) => i);
     const maxLength = 2;
 
@@ -107,6 +119,11 @@ export const Game = ({isBlurred, onRulesClick, tries, onChooseNumber, onAcceptTr
         <Content $isBlurred={isBlurred}>
                 <RulesButton onClick={onRulesClick}>Правила</RulesButton>
                 <GameLines>
+                    {isAdditional && (
+                        <AdditionalText>
+                            Ошибаться — это нормально.{'\n'}Держи ещё 2 попытки, мы в тебя верим!
+                        </AdditionalText>
+                    )}
                     {tries.map((tr, ind) => (
                         <Line key={'line_' + ind}>
                             {tr.map((cell, i) => (
