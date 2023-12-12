@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
 import { ButtonCentered } from "../shared/button";
+import { CommonText, Title } from "../shared/common-text";
 import { FlexWrapper } from "../shared/flex-wrapper";
 
 const Wrapper = styled(FlexWrapper)`
@@ -94,6 +95,10 @@ const RadioButtonLabel = styled.label`
   }
 `;
 
+const FormWrapper = styled.div`
+
+`;
+
 export const Screen3 = () => {
     const [email, setEmail] = useState('');
     const [isSending, setIsSending] = useState(false);
@@ -152,18 +157,18 @@ export const Screen3 = () => {
     return (
         <Wrapper>
             <ContentWrapper>
-                <p>
-                    Стоп, это же индекс главного офиса МТС… 
-                    <br/>
-                    Все верно! Не обязательно ждать чуда от Деда Мороза, ведь ты можешь создать его самостоятельно — в МТС!
-                    <br/>
-                    Делай первые шаги к своей мечте вместе с крутой командой уже сейчас, и тогда наступающий год точно 
-                    принесёт тебе много приятных сюрпризов!
-                </p>
-                <ButtonStyled>Хочу в мтс</ButtonStyled>
-                <p>
+                <Title>
+                    Стоп, это же индекс{'\n'}офиса МТС… 
+                </Title>
+                <CommonText>
+                  Всё верно! Не обязательно ждать чуда от Деда Мороза, ведь ты можешь создать его самостоятельно — в МТС!
+                  Делай первые шаги к своей мечте вместе с крутой командой уже сейчас, и тогда наступающий год точно 
+                  принесёт тебе много приятных сюрпризов!
+                </CommonText>
+                
+                <CommonText>
                     А подарки мы тебе и так подарим! Оставляй контакты, чтобы участвовать в розыгрыше
-                </p>
+                </CommonText>
                 <Input 
                     $isCorrect={isCorrect}
                     value={email} 

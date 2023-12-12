@@ -1,26 +1,43 @@
 import styled from "styled-components";
-import bg from '../../../../assets/images/bg.png';
+import bg from '../../../../assets/images/bgGame.png';
 import { getArray } from "../../../../utils/getArray";
 import { Button } from "../../../shared/button";
 import { FlexWrapper } from "../../../shared/flex-wrapper";
 import { Cell } from "../../../shared/cell";
 import { CommonText } from "../../../shared/common-text";
+import { TRIES_AMOUNT } from "../constants";
+
+const background = `
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background-image: url(${bg});
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center 0;
+    background-size: cover;
+
+    @media screen and (min-width: 400px) {
+        background-size: 400px 850px;
+    }
+`;
+
+const blurredBg = `
+    ${background};
+    margin: -2px;
+    filter: blur(1px);
+`;
 
 const Content = styled(FlexWrapper)`
     width: 100%;
     height: 100%;
+    --lineGap: 8px;
+    
     ${({$isBlurred}) => $isBlurred ? 'filter: blur(3.5px)' : ''};
 
     &::before {
-        content: '';
-        position: absolute;
-        z-index: -1;
-        width: 100%;
-        height: 100%;
-        background: url('https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg');
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        background-size: cover;
+       ${background};
     }
 `;
 
@@ -30,7 +47,7 @@ const Line = styled.div`
   margin: 0 auto;
 
   & + & {
-    margin-top: 8px;
+    margin-top: var(--lineGap);
   }
 `;
 
@@ -57,8 +74,24 @@ const ButtonsBlock = styled.div`
     display: flex;
     margin: auto auto min(45px, 12vw);
     align-items: center;
-    max-width: calc(100% - 2 *var(--screen_padding));
+    max-width: calc(100% - 2 * var(--screen_padding));
     min-width: min(315px, 85vw);
+
+    & button{
+        position: relative;
+
+        &::before {
+            ${blurredBg};
+        }
+
+        @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+            backdrop-filter: blur(2.5px);
+            &::before {
+                background: none;
+                filter: none;
+            }
+        }
+    }
 `;
 
 const DeleteBtn = styled.button`
@@ -69,18 +102,18 @@ const DeleteBtn = styled.button`
 const CellStyled = styled(Cell)`
     overflow: hidden;
     position: relative;
+    box-shadow: 0px 0px 2px rgba(111, 137, 222, 0.23);
 
     &::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        background-image: url('https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-1080x675.jpg');
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        background-size: cover;
-        margin: -35px;
-        filter: blur(2px);
+        ${blurredBg};
+    }
+
+    @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+        backdrop-filter: blur(2.5px);
+        &::before {
+            background: none;
+            filter: none;
+        }
     }
 `;
 
@@ -100,6 +133,7 @@ const RulesButton = styled.button`
 `;
 
 const GameLines = styled.div`
+    min-height: calc(var(--cellWidth) * ${TRIES_AMOUNT} + var(--lineGap) * ${TRIES_AMOUNT - 1});
     margin: calc(var(--screen_padding) * 33 / 12) auto calc(var(--screen_padding) * 11 / 12);
 `;
 
@@ -109,7 +143,11 @@ const AdditionalText = styled(CommonText)`
     margin-bottom: calc(var(--screen_padding) * 4 / 3);
 `;
 
-export const Game = ({isBlurred, onRulesClick, tries, onChooseNumber, onAcceptTry, onDelete, isDoneBtnActive, isAdditional}) => {
+export const Game = ({
+    isBlurred, onRulesClick, tries, 
+    onChooseNumber, onAcceptTry, onDelete, 
+    isDoneBtnActive, isAdditional,
+}) => {
     const numbers = getArray(10, (a, i) => i);
     const maxLength = 2;
 

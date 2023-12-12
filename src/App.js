@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import bg from './assets/images/bg.png';
 import { FlexWrapper } from './components/shared/flex-wrapper';
 import { ProgressProvider } from './context/ProgressContext';
 import { useProgressInit } from './hooks/useProgressInit';
@@ -34,7 +35,20 @@ const ComponentWrapper = styled(FlexWrapper)`
     border: 3px solid black;
     border-radius: 20px;
     margin: 5px 0 auto;
-    max-height: 730px;
+    max-height: 850px;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background-image: url(${bg});
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: -35px;
+    filter: blur(2px);
   }
 `;
 
