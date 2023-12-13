@@ -34,7 +34,7 @@ const ComponentWrapper = styled(FlexWrapper)`
     max-width: 400px;
     border: 3px solid black;
     border-radius: 20px;
-    margin: 5px 0 auto;
+    margin: 5px auto 5px;
     max-height: 850px;
   }
 

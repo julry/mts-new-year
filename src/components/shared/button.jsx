@@ -19,6 +19,7 @@ export const Wrapper = styled.button`
     padding: min(14px, 3.7vw);
     border-radius: 16px;
     font-size: 12px;
+    user-select: none;
 
     &:disabled {
         background-color: ${({$type}) => TYPE_TO_DISABLED[$type]};  

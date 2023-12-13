@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
 import { useProgress } from "../../../hooks/useProgress";
 import { getAllIndexes, getAllObjectIndexes } from "../../../utils/getAllIndexes";
@@ -104,7 +104,7 @@ export const Screen2 = () => {
         setHasReachAdditional(false);
     };
 
-    const onChooseNumber = (num) => {
+    const onChooseNumber = useCallback((num) => {
         if (hasReachAdditional && !isAdditional) return;
         let id = currentNumId;
         if (id + 1 > CELLS_AMOUNT) return;
@@ -112,9 +112,11 @@ export const Screen2 = () => {
         const newLine = [...newTries[currentTry]];
         newLine[id] = {num};
         newTries[currentTry] = newLine;
+        console.log({...tries, [triesName]: [...newTries]});
+        console.log(id + 1);
         setTries(prev => ({...prev, [triesName]: [...newTries]}));
-        setCurrentNumId(() => id + 1);
-    };
+        setCurrentNumId(id + 1);
+    }, [currentNumId, currentTry, hasReachAdditional, isAdditional, tries, triesName]);
 
     const handleOpenIncorrect = useCallback(() => {
         const index = Math.floor((availableMessages.length - 1) * Math.random());
@@ -200,6 +202,27 @@ export const Screen2 = () => {
         setCurrentNumId(numId => --numId);
     }, [currentNumId, hasReachAdditional, isAdditional, tries, triesName, currentTry]);
 
+    useEffect(() => {
+        const onKeyDown = (e) => {
+            if (e.code.toLowerCase().includes('digit') && e.key !== undefined) {
+                onChooseNumber(+e.key);
+            }
+            if (e.code === 'Backspace') {
+                onDelete();
+            }
+            if (e.code === 'Enter') {
+                if (incorrect.shown) handleCloseIncorrect() 
+                else onAcceptTry();
+            }
+        };
+
+        window.addEventListener('keydown', onKeyDown);
+        
+        return () => {
+            window.removeEventListener('keydown', onKeyDown);
+        }
+    }, [onChooseNumber, onDelete, onAcceptTry, handleCloseIncorrect, incorrect.shown]);
+    
     return (
         <Wrapper>
             {hasReachAdditional && (

@@ -6,6 +6,7 @@ import { FlexWrapper } from "../../../shared/flex-wrapper";
 import { Cell } from "../../../shared/cell";
 import { CommonText } from "../../../shared/common-text";
 import { TRIES_AMOUNT } from "../constants";
+import { DeleteButton } from "./delete-button";
 
 const background = `
     content: '';
@@ -63,6 +64,7 @@ const ButtonCell = styled(Cell)`
     p {
         touch-action: none;
         pointer-events: none;
+        user-select: none;
     }
     
     & + & {
@@ -92,11 +94,6 @@ const ButtonsBlock = styled.div`
             }
         }
     }
-`;
-
-const DeleteBtn = styled.button`
-    height: 40px;
-    width: 60px;
 `;
 
 const CellStyled = styled(Cell)`
@@ -185,7 +182,7 @@ export const Game = ({
                 </ButtonsWrapper>
                 <ButtonsBlock>
                     <Button onClick={onAcceptTry} disabled={!isDoneBtnActive}>Проверить</Button>
-                    <DeleteBtn onClick={onDelete}>X</DeleteBtn>
+                    <DeleteButton onClick={onDelete} />
                 </ButtonsBlock>
             </Content>
     );
