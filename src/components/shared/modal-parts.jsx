@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Button } from '../../../shared/button';
-import { CommonText } from '../../../shared/common-text';
-import { FlexWrapper } from '../../../shared/flex-wrapper';
+import { Button } from './button';
+import { CommonText } from './common-text';
+import { FlexWrapper } from './flex-wrapper';
 
 export const ModalWrapper = styled.div`
     position: absolute;
@@ -18,10 +18,10 @@ export const Modal = styled(FlexWrapper)`
     background: white;
     color: #626C77;
     align-items: center;
-    top: 50%;
+    top: calc(4 * var(--screen_padding));
     left: 50%;
     width: calc(100% - var(--screen_padding) * 2 / 3);
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
     text-align: center;
     border-radius: calc(var(--screen_padding) * 4 / 3);
     padding: calc(var(--screen_padding) * 4 / 3) calc(var(--screen_padding) * 5 / 6) calc(var(--screen_padding) * 5 / 6);

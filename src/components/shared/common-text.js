@@ -45,3 +45,8 @@ export const Title = styled.h1`
         line-height: 19px;
     }
 `;
+
+export const Compact = styled.p`
+    font-family: 'MTSCompact', 'MTSText', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+`;

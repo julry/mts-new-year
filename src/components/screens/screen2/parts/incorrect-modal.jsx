@@ -1,4 +1,4 @@
-import { Modal, ModalWrapper, ModalText, ModalButton } from "./modal-parts";
+import { Modal, ModalWrapper, ModalText, ModalButton } from "../../../shared/modal-parts";
 
 export const IncorrectModal = ({ onClose, text }) => (
     <ModalWrapper>

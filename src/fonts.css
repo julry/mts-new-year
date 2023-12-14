@@ -76,3 +76,16 @@
     font-weight: 400;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'MTSCompact';
+    src: local('MTSCompact'), local('MTS-Compact'),
+    url('./assets/fonts/MTSCompact/MTSCompact-Medium.ttf') format('truetype'),
+    url('./assets/fonts/MTSCompact/MTSCompact-Medium.eot') format('embedded-opentype'),
+    url('./assets/fonts/MTSCompact/MTSCompact-Medium.eot?#iefix') format('embedded-opentype'),
+    url('./assets/fonts/MTSCompact/MTSCompact-Medium.otf') format('opentype'),
+    url('./assets/fonts/MTSCompact/MTSCompact-Medium.woff') format('woff'),
+    url('./assets/fonts/MTSCompact/MTSCompact-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+}

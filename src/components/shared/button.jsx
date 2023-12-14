@@ -5,11 +5,6 @@ const TYPE_TO_COLOR = {
     secondary: 'black'
 };
 
-const TYPE_TO_DISABLED = {
-    main: 'rgba(255, 0, 50, 0.6)',
-    secondary: 'rgba(242 243 247, 0.6);'
-};
-
 export const Wrapper = styled.button`
     color: ${({$type}) => TYPE_TO_COLOR[$type]};
     background: var(--main_${({$type}) => $type === 'main' ? 'red' : 'gray'});
@@ -20,9 +15,13 @@ export const Wrapper = styled.button`
     border-radius: 16px;
     font-size: 12px;
     user-select: none;
-
+    transition: all 0.35s;
+    font-weight: 700;
+    
     &:disabled {
-        background-color: ${({$type}) => TYPE_TO_DISABLED[$type]};  
+        background-color: rgba(185, 195, 208, 0.5);  
+        color: #969FA8;
+        cursor: auto;
     }
 `;
 

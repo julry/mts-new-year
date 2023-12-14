@@ -63,9 +63,9 @@ const ButtonRight = styled(ButtonStyled)`
 `;
 
 export const Screen2 = () => {
-    const { next } = useProgress();
+    const { next, updateProgress } = useProgress();
 
-    const [isRules, setIsRules] = useState(false);
+    const [isRules, setIsRules] = useState(true);
     const [isFirstRules, setIsFirstRules] = useState(true);
     const [incorrect, setIncorrect] = useState({shown: false});
     const [isAllIncorrect, setIsAllIncorrect] = useState(false);
@@ -91,17 +91,6 @@ export const Screen2 = () => {
         if (isFirstRules) setIsFirstRules(false);
 
         setIsRules(false);
-    };
-
-    const handleRestart = () => {
-        setIsAdditional(false);
-        setIncorrect({shown: false});
-        setIsAllIncorrect(false);
-        setAvailableMessages(MESSAGES);
-        setTries({main: initialTries, additional: initialAddTries});
-        setCurrentTry(0);
-        setCurrentNumId(0);
-        setHasReachAdditional(false);
     };
 
     const onChooseNumber = useCallback((num) => {
@@ -159,6 +148,7 @@ export const Screen2 = () => {
 
         setTries(prev => ({...prev, [triesName]: [...newTries]}));
         if (newTries[currentTry].filter(num => !!num.correct).length === newTries[currentTry].length) {
+            updateProgress({isWin: true});
             next();
 
             return;
@@ -187,10 +177,7 @@ export const Screen2 = () => {
         }, 500);
         
         setCurrentTry(id => id + 1);
-    }, [
-        isDoneBtnActive, tries, triesName, currentTry, next, 
-        handleOpenIncorrect, isAdditional, hasReachAdditional
-    ]);
+    }, [isDoneBtnActive, tries, triesName, currentTry, updateProgress, next, isAdditional, handleOpenIncorrect, hasReachAdditional]);
 
     const onDelete = useCallback(() => {
         if (currentNumId - 1 < 0 || (hasReachAdditional && !isAdditional)) return;
@@ -253,7 +240,7 @@ export const Screen2 = () => {
             />
             {isRules && <Rules onClose={handleCloseRules} isFirstRules={isFirstRules} />}
             {incorrect.shown && <IncorrectModal text={availableMessages[incorrect.index]} onClose={handleCloseIncorrect} />}
-            {isAllIncorrect && <FinishModal onRestart={handleRestart} />}
+            {isAllIncorrect && <FinishModal />}
         </Wrapper>
     );
 };

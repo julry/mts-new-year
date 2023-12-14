@@ -1,7 +1,11 @@
 import { screens } from '../screens.config';
 import { useState } from 'react';
 
-const INITIAL_PROGRESS = {};
+const INITIAL_PROGRESS = {
+    isWin: false,
+    email: '',
+    isExperienced: null,
+};
 
 export function useProgressInit() {
     /////////////////// for development ////////////////////////////////////
@@ -27,6 +31,7 @@ export function useProgressInit() {
     return {
         progress,
         screen,
+        isExperienced: progress.isExperienced,
         next,
         updateProgress,
     };

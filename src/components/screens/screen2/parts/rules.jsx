@@ -1,6 +1,11 @@
 import { styled } from "styled-components";
 import { Cell } from "../../../shared/cell";
-import { Modal, ModalWrapper, ModalText, ModalButton } from "./modal-parts";
+import { Modal, ModalWrapper, ModalText, ModalButton } from "../../../shared/modal-parts";
+
+const ModalStyled = styled(Modal)`
+    top: 50%;
+    transform: translate(-50%, -50%);
+`;
 
 const RulesCell = styled(Cell)`
     background: ${({background}) => background ?? '#F2F3F7'};
@@ -16,7 +21,7 @@ const ExampleRow = styled.div`
 
 export const Rules = ( { isFirstRules, onClose } ) => (
     <ModalWrapper>
-        <Modal>
+        <ModalStyled>
             <ModalText>
                 Введи 6 цифр предполагаемого индекса и нажми «Проверить».{'\n'}
                 Если цифра верная и на своём месте, то ячейка станет красной.{'\n'}
@@ -32,6 +37,6 @@ export const Rules = ( { isFirstRules, onClose } ) => (
                 <RulesCell>5</RulesCell>
             </ExampleRow>
             <ModalButton onClick={onClose}>{isFirstRules ? 'Начать' : 'Понятно'}</ModalButton>
-        </Modal>
+        </ModalStyled>
     </ModalWrapper>
 );
