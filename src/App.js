@@ -28,7 +28,6 @@ const ComponentWrapper = styled(FlexWrapper)`
   position: relative;
   height: 100%;
   width: 100%;
-  overflow: hidden;
 
   @media screen and (min-width: 640px) {
     max-width: 400px;
@@ -36,19 +35,10 @@ const ComponentWrapper = styled(FlexWrapper)`
     border-radius: 20px;
     margin: 5px auto 5px;
     max-height: 850px;
-  }
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-    background-image: url(${bg});
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin: -35px;
-    filter: blur(2px);
+    & > div {
+      border-radius: 20px;
+    }
   }
 `;
 

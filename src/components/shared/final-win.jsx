@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import styled from "styled-components";
+import bg from '../../assets/images/bgWin.png';
 import { useProgress } from "../../hooks/useProgress"
 import { ButtonCentered } from "./button";
 import { CommonText, Title } from "./common-text";
@@ -7,10 +8,51 @@ import { ExperienceRadio } from "./experience-radio";
 import { FlexWrapper } from "./flex-wrapper";
 import { Input } from "./input";
 
+const background = `
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background-image: url(${bg});
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: cover;
+
+    @media screen and (min-width: 400px) {
+        background-size: 400px 850px;
+    }
+`;
+
+const blurredBg = `
+    ${background};
+    margin: -2px;
+    filter: blur(3px);
+`;
+
 const Wrapper = styled(FlexWrapper)`
     width: 100%;
     height: 100%;
+    overflow: hidden;
     padding-top: calc(3.8 * var(--screen_padding));
+
+    @media screen and (max-height: 750px) {
+        padding-top: calc(2.8 * var(--screen_padding));
+    }
+
+    
+    &::before {
+        ${background};
+    }
+
+    @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+        background: url(${bg}) no-repeat 0 100% / cover;
+
+        &::before {
+            background: none;
+            width: 0;
+        }
+    }
 `;
 
 const ContentWrapper = styled.div`
@@ -36,6 +78,7 @@ const RadioIconStyled = styled.div`
   border: 1px solid var(--main_red);
   border-radius: 5px;
   margin-right: min(10px, 2.6vw);
+
   @media screen and (max-height: 700px) {
     width: 17px;
     height: 17px;
@@ -84,6 +127,24 @@ const FormWrapper = styled.div`
     text-align: center;
     background: rgba(255, 255, 255, 0.6);
     border-radius: calc(var(--screen_padding) * 4 / 3);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        ${blurredBg};
+    }
+
+    @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+        backdrop-filter: blur(3px);
+        &::before {
+            filter: none;
+            background: none;
+        }
+    }
+
+    @media screen and (max-height: 700px) {
+        margin-top: var(--screen_padding);
+    }
 `;
 
 export const FinalWin = () => {
@@ -152,10 +213,10 @@ export const FinalWin = () => {
                     Стоп, это же индекс{'\n'}офиса МТС… 
                 </Title>
                 <CommonText>
-                    Всё верно! Не обязательно ждать волшебства от Деда Мороза, 
-                    ведь ты можешь создать его сам — в МТС! Делай первые шаги к своей мечте 
-                    вместе с крутой командой уже сейчас, и тогда наступающий год точно принесёт 
-                    тебе много приятных сюрпризов!
+                    Всё верно! Не обязательно ждать волшебства
+                    от Деда Мороза, создай его сам! Если кажется, что 
+                    работа твоей мечты — в МТС, откликайся. Выбирай «Хочу в МТС…», 
+                    и крутая карьера станет на шаг ближе!
                 </CommonText>
                 <FormWrapper>
                 <CommonText>

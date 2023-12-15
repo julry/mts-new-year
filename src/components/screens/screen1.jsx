@@ -12,6 +12,11 @@ const Wrapper = styled(FlexWrapper)`
     height: 100%;
     padding: calc(var(--screen_padding) * 2.1) var(--screen_padding) calc(var(--screen_padding) * 2);
     background: url(${bg}) no-repeat 0 0 / cover;
+    overflow: hidden;
+
+    @media screen and (max-height: 700px) {
+        padding-top: calc(var(--screen_padding) * 1.5); 
+    }
 `;
 
 const Content = styled(FlexWrapper)`
@@ -32,6 +37,10 @@ const LogoStyled = styled.div`
     height: min(46px, 12.4vw);
     background: url(${logo}) no-repeat 0 0 / cover;
     margin-bottom: calc(var(--screen_padding) * 1.8);
+
+    @media screen and (max-height: 700px) {
+        margin-bottom: calc(var(--screen_padding) * 1.1); 
+    }
 `;
 
 const Composition = styled.div`
@@ -40,16 +49,12 @@ const Composition = styled.div`
     inset: 0;
     background: url(${composition}) no-repeat 0 100% / cover;
 
-    @media screen and (max-height: 800px) {
-        background-position: 0 80%;
-    }
-
     @media screen and (max-height: 700px) {
-        background-position: 0 45%;
+        background-position: 0 90%;
     }
 
     @media screen and (max-height: 600px) {
-        background-position: 0 18%;
+        background-position: 0 48%;
     }
 `;
 
@@ -76,15 +81,20 @@ export const Screen1 = () => {
             <LogoStyled />
             <Content>
                 <Title>
-                    А что, если Дед Мороз существует?
+                    Весь год мечтал об идеальной работе?
                 </Title>
                 <Text>
-                    Тогда тебе точно нужно написать ему письмо, рассказать о своих мечтах и поверить в чудо. 
-                    Письмо положить в конверт и отправить по почте. Да, не юзерфрендли, зато олдскульно!
+                    Пришло время исполнить желание! 
                     <br/>
                     <br/>
-                    Есть одно НО — индекса резиденции Деда Мороза у тебя нет. 
-                    Попробуй разгадать его и получи подарки! Или ещё круче — возможность присоединиться к команде МТС.
+                    МТС тебе в этом поможет — у нас есть секретный адрес Деда Мороза. 
+                    Давай вместе поверим в чудо? Загадай свою работу мечты и отправь ему письмо. 
+                    Да, не юзерфрендли, зато олдскульно!
+                    <br/>
+                    <br/>
+                    Только сначала надо разгадать индекс, сыграв в игру. Самых находчивых и упорных 
+                    ждёт розыгрыш призов: подписка на цифровые сервисы МТС, крутой мерч или новогодний сладкий подарок. 
+                    Или ещё круче — возможность присоединиться к команде МТС!
                 </Text>
                 <ButtonStyled onClick={next}>играть</ButtonStyled>
             </Content>

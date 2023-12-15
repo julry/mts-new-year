@@ -11,7 +11,7 @@ import { DIRECTIONS_INTERN, DIRECTIONS_JOB, SKILLS_INTERN, SKILLS_JOB } from "..
 const Wrapper = styled(FlexWrapper)`
     width: 100%;
     height: 100%;
-    padding: calc(${({$isExperienced}) => $isExperienced ? 3.1 : 4} * var(--screen_padding)) min(20px, 5.3vw) 0;
+    padding: calc(${({$isExperienced}) => $isExperienced ? 3.1 : 4} * var(--screen_padding)) min(20px, 5.3vw) var(--screen_padding);
     ${({$isBlurred}) => $isBlurred ? 'filter: blur(3.5px)' : ''};
 `;
 

@@ -11,6 +11,7 @@ import { ADDITIONAL_TRIES_AMOUNT, ANSWER, CELLS_AMOUNT, MESSAGES, TRIES_AMOUNT }
 const Wrapper = styled(FlexWrapper)`
     width: 100%;
     height: 100%;
+    overflow: hidden;
     --cellWidth: 45px;
 
     @media screen and (max-width: 340px) {

@@ -27,7 +27,7 @@ const background = `
 const blurredBg = `
     ${background};
     margin: -2px;
-    filter: blur(1px);
+    filter: blur(3px);
 `;
 
 const Content = styled(FlexWrapper)`
@@ -87,7 +87,7 @@ const ButtonsBlock = styled.div`
         }
 
         @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-            backdrop-filter: blur(2.5px);
+            backdrop-filter: blur(3px);
             &::before {
                 background: none;
                 filter: none;
@@ -106,7 +106,7 @@ const CellStyled = styled(Cell)`
     }
 
     @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-        backdrop-filter: blur(2.5px);
+        backdrop-filter: blur(3px);
         &::before {
             background: none;
             filter: none;
