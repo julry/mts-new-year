@@ -19,7 +19,7 @@ import { useMemo } from "react";
 
 const Bg = styled.div`
     position: absolute;
-    z-index: 0;
+    z-index: -1;
     inset: 0;
     background: url(${bg}) no-repeat 0 0 / cover;
 `;
@@ -250,19 +250,19 @@ export const MainForm = () => {
 
     return (
         <>
-            <Bg>
-                <Header>
-                    <BlueBall src={blueBall} alt="" />
-                    <Composition src={composition} alt="" />
-                </Header>
-                {!isExperienced && (
-                    <Footer>
-                        <Stars src={stars} alt="" />
-                        <RedBall src={redBall} alt="" />
-                    </Footer>
-                )}
-            </Bg>
             <Wrapper $isExperienced={isExperienced} $isBlurred={isInfo}>
+                <Bg>
+                    <Header>
+                        <BlueBall src={blueBall} alt="" />
+                        <Composition src={composition} alt="" />
+                    </Header>
+                    {!isExperienced && (
+                        <Footer>
+                            <Stars src={stars} alt="" />
+                            <RedBall src={redBall} alt="" />
+                        </Footer>
+                    )}
+                </Bg>
                 <Note>
                     Все поля формы обязательны для заполнения*
                 </Note>
