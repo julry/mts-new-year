@@ -19,6 +19,8 @@ export const Wrapper = styled.button`
     font-weight: 700;
     
     &:disabled {
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
         background-color: rgba(185, 195, 208, 0.5);  
         color: #969FA8;
         cursor: auto;

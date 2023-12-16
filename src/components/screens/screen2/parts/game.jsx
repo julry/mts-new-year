@@ -59,7 +59,7 @@ const ButtonsWrapper = styled.div`
   align-items: center;
 
   @media screen and (max-height: 700px) {
-    margin-top: calc(var(--screen_padding) * 1.8);
+    margin-top: calc(var(--screen_padding) * 1.1);
   }
 
   @media screen and (max-height: 600px) {
@@ -73,6 +73,8 @@ const ButtonsWrapper = styled.div`
 
 const ButtonCell = styled(Cell)`
     background-color: rgba(255,255,255,0.9);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 
     p {
         touch-action: none;
@@ -92,8 +94,12 @@ const ButtonsBlock = styled.div`
     max-width: calc(100% - 2 * var(--screen_padding));
     min-width: min(315px, 85vw);
 
+    @media screen and (max-height: 700px) {
+        margin-bottom: min(25px, 7vw);
+    }
+
     @media screen and (max-height: 600px) {
-        margin-bottom: min(20px, 9vw);
+        margin-bottom: min(20px, 3vw);
     }
 
     & button{
@@ -154,6 +160,7 @@ const GameLines = styled.div`
 
     @media screen and (max-height: 700px) {
         margin-top: calc(var(--screen_padding) * 2);
+        margin-bottom: calc(var(--screen_padding) * 2 / 3);
     }
 
     @media screen and (max-height: 600px) {

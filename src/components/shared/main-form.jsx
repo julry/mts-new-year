@@ -125,7 +125,6 @@ const Label = styled(Compact)`
 `;
 
 const TextArea = styled.textarea`
-    overflow: auto;
     min-height: 94px;
     resize: none;
 

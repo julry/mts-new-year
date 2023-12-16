@@ -105,7 +105,6 @@ const RadioButtonLabel = styled.label`
     text-align: left;
     border-radius: 5px;
     margin-top: min(16px, 4.3vw);
-    margin-bottom: min(16px, 4.3vw);
   & a {
     color: inherit;
   }
@@ -207,6 +206,10 @@ const FormWrapper = styled.div`
     }
 `;
 
+const ButtonStyled = styled(ButtonCentered)`
+    margin-top: min(16px, 4.3vw);
+`;
+
 export const FinalWin = () => {
     const { next, isExperienced, updateProgress } = useProgress();
     const [email, setEmail] = useState('');
@@ -237,7 +240,7 @@ export const FinalWin = () => {
 
         fetch(myRequest).then(() => {
             setIsSend(true);
-            updateProgress({isEmailSend: true});
+            if (typeof isExperienced === 'boolean') updateProgress({isEmailSend: true});
         }).finally(() => {
             setIsSending(false);
             if (typeof isExperienced === 'boolean') next();
@@ -282,6 +285,7 @@ export const FinalWin = () => {
                 {isSend ? (
                     <InputStyled 
                         disabled
+                        value=""
                         $isSend
                         placeholder="Почта отправлена!"
                     />
@@ -289,6 +293,7 @@ export const FinalWin = () => {
                     <InputStyled 
                         $isWrong={!isCorrect}
                         value={email} 
+                        type="email"
                         onBlur={handleBlur}
                         onChange={handleChange} 
                         placeholder="example@post.ru"
@@ -296,34 +301,38 @@ export const FinalWin = () => {
                 )}
                 
                 <ExperienceRadio />
-                <RadioButtonLabel>
-                    <InputRadioButton
-                        type="checkbox"
-                        value={isAgreed}
-                        checked={isAgreed}
-                        onChange={handleAgree}
-                    />
-                    <RadioIconStyled/>
-                    <span>
-                    Я согласен(а) на <a rel="noreferrer" href={'https://fut.ru/personal_data_policy/'} target="_blank">
-                    обработку персональных данных</a> и получение информационных сообщений
-                </span>
-                </RadioButtonLabel>
+                
                 {isSend ? (
-                    <ButtonCentered 
+                    <ButtonStyled 
                         type="main" 
                         onClick={next}
+                        disabled={typeof isExperienced !== 'boolean'}
                     >
                         перейти
-                    </ButtonCentered>
+                    </ButtonStyled>
                 ) : (
-                    <ButtonCentered 
-                        type="main" 
-                        disabled={!email || !isAgreed || !isCorrect} 
-                        onClick={handleSendData}
-                    >
-                        отправить
-                    </ButtonCentered>
+                    <>
+                        <RadioButtonLabel>
+                            <InputRadioButton
+                                type="checkbox"
+                                value={isAgreed}
+                                checked={isAgreed}
+                                onChange={handleAgree}
+                            />
+                            <RadioIconStyled/>
+                                <span>
+                                Я согласен(а) на <a rel="noreferrer" href={'https://fut.ru/personal_data_policy/'} target="_blank">
+                                обработку персональных данных</a> и получение информационных сообщений
+                            </span>
+                        </RadioButtonLabel>
+                        <ButtonStyled 
+                            type="main" 
+                            disabled={!email || !isAgreed || !isCorrect} 
+                            onClick={handleSendData}
+                        >
+                            отправить
+                        </ButtonStyled>
+                    </>
                 )}
                 
                 </FormWrapper>

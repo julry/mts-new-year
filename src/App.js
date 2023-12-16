@@ -60,6 +60,10 @@ const Elements = styled.div`
   position: absolute;
   z-index: 0;
   inset: 0;
+
+  @media screen and (max-width: 640px) {
+    display: none;
+  }
 `;
 
 const BigImage = styled.img`

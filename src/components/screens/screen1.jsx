@@ -54,6 +54,10 @@ const Composition = styled.img`
     bottom: 0;
     left: 0;
     width: 100%;
+
+    @media screen and (max-height: 700px) {
+        bottom: -30px;
+    }
 `;
 
 const Text = styled.p`
