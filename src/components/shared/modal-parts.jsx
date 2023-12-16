@@ -7,6 +7,7 @@ export const ModalWrapper = styled.div`
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.3);
+    z-index: 100;
 `;
 
 export const ModalText = styled(CommonText)`

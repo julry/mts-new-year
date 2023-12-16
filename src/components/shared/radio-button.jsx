@@ -55,9 +55,8 @@ const TextStyled = styled(CommonText)`
 `;
 
 export const RadioButton = (props) => {
-    const { name, value, checked, children, onChange, className } = props;
+    const { name, checked, children, onChange, className } = props;
 
-    console.log(value, checked);
     return (
         <WrapperStyled>
             <LabelStyled className={className}>

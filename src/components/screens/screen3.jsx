@@ -5,7 +5,8 @@ import { MainForm } from "../shared/main-form";
 export const Screen3 = () => {
     const { progress } = useProgress();
 
-    if (progress.isWin) return <FinalWin />
+    // if (progress.isWin) 
+    return <FinalWin />
 
     return <MainForm />
 };

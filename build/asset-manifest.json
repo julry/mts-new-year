@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "./static/css/main.c016f023.css",
-    "main.js": "./static/js/main.9d31a3f4.js",
-    "static/media/bgGame.png": "./static/media/bgGame.1b3ede63702df9d32aea.png",
+    "main.css": "./static/css/main.259c90e7.css",
+    "main.js": "./static/js/main.3fb16e26.js",
     "static/media/bgWin.png": "./static/media/bgWin.c916618df3dd36f44b3b.png",
-    "static/media/bgSnow.png": "./static/media/bgSnow.acfcf65d934040bca10a.png",
-    "static/media/composition.png": "./static/media/composition.0b2234faf7626431666e.png",
-    "static/media/bg.png": "./static/media/bg.6a5eb612a8dd1e34f825.png",
+    "static/media/formBg.png": "./static/media/formBg.232bd32ee9e528e80a10.png",
+    "static/media/bgGame.png": "./static/media/bgGame.c76a01bbee5809e6bbcc.png",
+    "static/media/bgSnow.png": "./static/media/bgSnow.461ae2df3eff94c32b70.png",
+    "static/media/composition.png": "./static/media/composition.08c74f6ba2a0975cf4c9.png",
     "static/media/MTSText-Bold.ttf": "./static/media/MTSText-Bold.f06f4708f1e324d37f40.ttf",
     "static/media/MTSText-Regular.ttf": "./static/media/MTSText-Regular.b0744beaec1e0e7aad58.ttf",
     "static/media/MTSCompact-Medium.ttf": "./static/media/MTSCompact-Medium.f32e21e0bd1f39ee9b36.ttf",
@@ -21,6 +21,7 @@
     "static/media/MTSText-Regular.otf": "./static/media/MTSText-Regular.7a0fed70975db42b1751.otf",
     "static/media/MTSCompact-Medium.otf": "./static/media/MTSCompact-Medium.5679082d23e164a4f01d.otf",
     "static/media/MTSCompact-Regular.otf": "./static/media/MTSCompact-Regular.b73e106b8a972d67b115.otf",
+    "static/media/redBall.png": "./static/media/redBall.3065ca26bbe6afc4740f.png",
     "static/media/MTSWide-Bold.woff": "./static/media/MTSWide-Bold.425683325f9ad8a6c23e.woff",
     "static/media/MTSText-Bold.woff": "./static/media/MTSText-Bold.ddbd01a9bf1d36affcad.woff",
     "static/media/MTSWide-Medium.woff": "./static/media/MTSWide-Medium.133d4264e19793f7cde2.woff",
@@ -42,14 +43,17 @@
     "static/media/MTSText-Regular.woff2": "./static/media/MTSText-Regular.c5426838a3c9abc67231.woff2",
     "static/media/MTSCompact-Medium.woff2": "./static/media/MTSCompact-Medium.36c2e6be7399842f0466.woff2",
     "static/media/MTSCompact-Regular.woff2": "./static/media/MTSCompact-Regular.b37f94f8a8cf0497ae85.woff2",
+    "static/media/blueBall.png": "./static/media/blueBall.84965410233051a1de2d.png",
+    "static/media/headerComposition.png": "./static/media/headerComposition.957b2e31c070ad835c37.png",
+    "static/media/stars.png": "./static/media/stars.970fbb4769dc54f1e90d.png",
     "static/media/logo.svg": "./static/media/logo.ed7e3ec78412858e75b861dbfc3c1e01.svg",
     "index.html": "./index.html",
     "static/media/delete.svg": "./static/media/delete.501c3ae2c0e4c83e27345e6a72b58a00.svg",
-    "main.c016f023.css.map": "./static/css/main.c016f023.css.map",
-    "main.9d31a3f4.js.map": "./static/js/main.9d31a3f4.js.map"
+    "main.259c90e7.css.map": "./static/css/main.259c90e7.css.map",
+    "main.3fb16e26.js.map": "./static/js/main.3fb16e26.js.map"
   },
   "entrypoints": [
-    "static/css/main.c016f023.css",
-    "static/js/main.9d31a3f4.js"
+    "static/css/main.259c90e7.css",
+    "static/js/main.3fb16e26.js"
   ]
 }

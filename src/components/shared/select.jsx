@@ -103,6 +103,16 @@ const PickedItems = styled.div`
     align-items: center;
     flex-wrap: wrap;
     margin-top: calc(var(--screen_padding) * 2 / 3);
+    overflow: auto;
+    max-height: 86px;
+
+    @media screen and (max-height: 700px) {
+        max-height: 72px;
+    }
+    
+    @media screen and (max-height: 600px) {
+        max-height: 63px;
+    }
 `;
 
 const SelectionHeader = styled.div`
@@ -173,19 +183,31 @@ const PickedItem = styled.div`
     margin-bottom: ${({$isOpen}) => $isOpen ? 'calc(var(--screen_padding) / 3)' : '0'};
     border-radius: 6px;
     font-size: 14px;
+    max-width: ${({$isOpen}) => $isOpen ? 'calc(100% - 20px)' : 'calc((100% - 25px) / 3)'};
 
     @media screen and (max-height: 700px) {
         font-size: 12px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+    
+    @media screen and (max-height: 600px) {
+        padding-top: 4px;
+        padding-bottom: 4px;
     }
 
     & p {
+        overflow: hidden;
+        white-space: nowrap;
         cursor: default;
-        width: max-content;
+        width: 100%;
+        text-overflow: ellipsis;
     }
 
     & svg {
         margin-left: 4px;
         cursor: pointer;
+        flex-shrink: 0;
     }
 `;
 
@@ -207,6 +229,7 @@ const MultiValues = styled.div`
     display: flex;
     align-items: center;
     inset: 6px;
+    width: 100%;
     font-size: 14px;
 `;
 
@@ -245,7 +268,9 @@ export const Select = ({ values, isMulti, options, label, onChange }) => {
 
     const handleInputRemove = (e, value) => {
         e.stopPropagation();
-        onChange(values.filter(item => item !== value));
+        const curValues = values.filter(item => item !== value);
+        onChange(curValues);
+        setPicked(curValues);
     };
 
     return (
@@ -266,7 +291,7 @@ export const Select = ({ values, isMulti, options, label, onChange }) => {
                 </Icon>
                 {isMulti && values.length > 0 && (
                     <MultiValues>
-                        {values?.slice(0, 3)?.map((value) => (
+                        {values?.slice(0, 2)?.map((value) => (
                               <PickedItem key={value} >
                                 <Compact>{value}</Compact>
                                     <svg 
@@ -281,8 +306,8 @@ export const Select = ({ values, isMulti, options, label, onChange }) => {
                                     </svg>
                             </PickedItem>
                         ))}
-                        {values?.length > 3 && (
-                            <Compact>+{values?.length - 3}</Compact>
+                        {values?.length > 2 && (
+                            <Compact>+{values?.length - 2}</Compact>
                         )}
                     </MultiValues>
                 )}

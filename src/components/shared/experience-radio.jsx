@@ -4,7 +4,6 @@ import { RadioButton } from "./radio-button";
 export const ExperienceRadio = (props) => {
     const { isExperienced, updateProgress } = useProgress();
     const handleClick = () => {
-        console.log('ale');
         updateProgress({isExperienced: false});
     }
 
@@ -12,7 +11,6 @@ export const ExperienceRadio = (props) => {
         <div {...props}>
             <RadioButton
                 name='isExperienced'
-                value={false}
                 checked={isExperienced === false}
                 onChange={handleClick}
             >
@@ -20,7 +18,6 @@ export const ExperienceRadio = (props) => {
             </RadioButton>
             <RadioButton
                 name='isExperienced'
-                value={true}
                 checked={isExperienced === true}
                 onChange={() => updateProgress({isExperienced: true})}
             >

@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import bg from '../../assets/images/bgWin.png';
+import { EMAIL_REG_EXP } from "../../constants";
 import { useProgress } from "../../hooks/useProgress"
 import { ButtonCentered } from "./button";
 import { CommonText, Title } from "./common-text";
@@ -16,7 +17,7 @@ const background = `
     background-image: url(${bg});
     background-attachment: fixed;
     background-repeat: no-repeat;
-    background-position: 0 100%;
+    background-position: center 100%;
     background-size: cover;
 
     @media screen and (min-width: 400px) {
@@ -31,27 +32,19 @@ const blurredBg = `
 `;
 
 const Wrapper = styled(FlexWrapper)`
+    position: relative;
     width: 100%;
     height: 100%;
     overflow: hidden;
     padding-top: calc(3.8 * var(--screen_padding));
 
     @media screen and (max-height: 750px) {
-        padding-top: calc(2.8 * var(--screen_padding));
+        padding-top: calc(2.5 * var(--screen_padding));
     }
 
     
     &::before {
         ${background};
-    }
-
-    @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-        background: url(${bg}) no-repeat 0 100% / cover;
-
-        &::before {
-            background: none;
-            width: 0;
-        }
     }
 `;
 
@@ -68,25 +61,38 @@ const ContentWrapper = styled.div`
 const InputStyled = styled(Input)`
     margin-top: min(16px, 4.3vw);
     margin-bottom: min(16px, 4.3vw);
+
+    ${({$isSend}) => $isSend ? '&::placeholder{text-align: center;}' : ''}
+`;
+
+const InputRadioButton = styled.input`
+  display: none;
 `;
 
 const RadioIconStyled = styled.div`
   position: relative;
   flex-shrink: 0;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 1px solid var(--main_red);
-  border-radius: 5px;
+  border-radius: 7px;
   margin-right: min(10px, 2.6vw);
 
   @media screen and (max-height: 700px) {
-    width: 17px;
-    height: 17px;
+    width: 16px;
+    height: 16px;
+    border-radius: 6px;
   }
-`;
 
-const InputRadioButton = styled.input`
-  display: none;
+  @media screen and (max-height: 600px) {
+    width: 14px;
+    height: 14px;
+    border-radius: 5px;
+  }
+
+    ${InputRadioButton}:checked + & {
+        background-color: var(--main_red);
+    }
 `;
 
 const RadioButtonLabel = styled.label`
@@ -104,20 +110,72 @@ const RadioButtonLabel = styled.label`
     color: inherit;
   }
   
-  & ${InputRadioButton}:checked + ${RadioIconStyled}:after {
+  & ${InputRadioButton}:checked + ${RadioIconStyled}::before {
     content: '';
     position: absolute;
-    inset: 0;
-    background-color: var(--main_red);
+    top: 6.5px;
+    left: 5px;
+    height: 5px;
+    width: 2px;
+    transform: rotate(-45deg);
+    background-color: #FFFFFF;
+    display: inline-block;
+    border-radius: 1px;
+  };
+
+  & ${InputRadioButton}:checked + ${RadioIconStyled}::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 8.5px;
+    height: 8px;
+    width: 2px;
+    transform: rotate(45deg);
+    background-color: #FFFFFF;
     display: inline-block;
     border-radius: 1px;
   };
  
-  @media screen and (max-height: 600px) {
-    font-size: 10px;
+  @media screen and (max-height: 700px) {
+    font-size: 9px;
+
+    & ${InputRadioButton}:checked + ${RadioIconStyled}::before {
+        top: 5.5px;
+        left: 4px;
+    };
+
+    & ${InputRadioButton}:checked + ${RadioIconStyled}::after {
+        top: 3px;
+        left: 7.5px;
+    };
   }
+
+  @media screen and (max-height: 600px) {
+    font-size: 9px;
+
+    & ${InputRadioButton}:checked + ${RadioIconStyled}::before {
+        top: 4.5px;
+        left: 3px;
+    };
+
+    & ${InputRadioButton}:checked + ${RadioIconStyled}::after {
+        top: 2px;
+        left: 6.5px;
+    };
+  }
+
   @media screen and (max-width: 310px) {
-    font-size: 10px;
+    font-size: 9px;
+
+    & ${InputRadioButton}:checked + ${RadioIconStyled}::before {
+        top: 4.5px;
+        left: 3px;
+    };
+
+    & ${InputRadioButton}:checked + ${RadioIconStyled}::after {
+        top: 2px;
+        left: 6.5px;
+    };
   }
 `;
 
@@ -136,6 +194,8 @@ const FormWrapper = styled.div`
 
     @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
         backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+
         &::before {
             filter: none;
             background: none;
@@ -155,41 +215,37 @@ export const FinalWin = () => {
     const [isCorrect, setIsCorrect] = useState(true);
     const [isAgreed, setIsAgreed] = useState(false);
 
-    const $inputRef = useRef();
-
-    const emailRegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-
     const handleSendData = () => {
         if (isSending || isSend) return;
 
         updateProgress({email});
-        // setIsSending(true);
+        setIsSending(true);
 
-        // const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSd-79EVSy5OaoO-HrB8NH01QWMFFVM3ohdkbXD8wfpfd7LhCg/formResponse';
-        // const EMAIL_ID = 'entry.995014161';
-        // const formData = new FormData();
+        const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSf6JuOu-IZ8Ri_-xq21-_P6ALXAZ6q82cQjjyO-gyiIxerL5w/formResponse';
+        const EMAIL_ID = 'entry.1143471537';
+        const formData = new FormData();
 
-        // formData.append(EMAIL_ID, email);
+        formData.append(EMAIL_ID, email);
 
-        // const myInit = {
-        //     method: 'POST',
-        //     mode: 'no-cors',
-        //     body: formData
-        // };
+        const myInit = {
+            method: 'POST',
+            mode: 'no-cors',
+            body: formData
+        };
 
-        // const myRequest = new Request(GOOGLE_FORM_ACTION_URL, myInit);
+        const myRequest = new Request(GOOGLE_FORM_ACTION_URL, myInit);
 
-        // fetch(myRequest).then(() => {
-        //     setIsSend(true);
-        //   
-        // }).finally(() => {
-        //     setIsSending(false);
-        //     if (typeof isExperienced === 'boolean') next();
-        // });
+        fetch(myRequest).then(() => {
+            setIsSend(true);
+            updateProgress({isEmailSend: true});
+        }).finally(() => {
+            setIsSending(false);
+            if (typeof isExperienced === 'boolean') next();
+        });
     };
 
     const handleBlur = () => {
-        if (email.match(emailRegExp) || !email) {
+        if (email.match(EMAIL_REG_EXP) || !email) {
             setIsCorrect(true);
         } else {
             setIsCorrect(false);
@@ -223,13 +279,22 @@ export const FinalWin = () => {
                     А подарки мы тебе и так подарим!{'\n'}
                     Оставляй контакты, чтобы участвовать в розыгрыше
                 </CommonText>
-                <InputStyled 
-                    $isWrong={!isCorrect}
-                    value={email} 
-                    onBlur={handleBlur}
-                    onChange={handleChange} 
-                    placeholder="example@post.ru"
-                />
+                {isSend ? (
+                    <InputStyled 
+                        disabled
+                        $isSend
+                        placeholder="Почта отправлена!"
+                    />
+                ) : (
+                    <InputStyled 
+                        $isWrong={!isCorrect}
+                        value={email} 
+                        onBlur={handleBlur}
+                        onChange={handleChange} 
+                        placeholder="example@post.ru"
+                    />
+                )}
+                
                 <ExperienceRadio />
                 <RadioButtonLabel>
                     <InputRadioButton
@@ -244,13 +309,23 @@ export const FinalWin = () => {
                     обработку персональных данных</a> и получение информационных сообщений
                 </span>
                 </RadioButtonLabel>
-                <ButtonCentered 
-                    type="main" 
-                    disabled={!email || !isAgreed || !isCorrect} 
-                    onClick={handleSendData}
-                >
-                    отправить
-                </ButtonCentered>
+                {isSend ? (
+                    <ButtonCentered 
+                        type="main" 
+                        onClick={next}
+                    >
+                        перейти
+                    </ButtonCentered>
+                ) : (
+                    <ButtonCentered 
+                        type="main" 
+                        disabled={!email || !isAgreed || !isCorrect} 
+                        onClick={handleSendData}
+                    >
+                        отправить
+                    </ButtonCentered>
+                )}
+                
                 </FormWrapper>
             </ContentWrapper>
         </Wrapper>

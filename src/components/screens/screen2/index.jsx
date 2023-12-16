@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import styled from "styled-components";
+import { isMobile } from 'react-device-detect'
 import { useProgress } from "../../../hooks/useProgress";
 import { getAllIndexes, getAllObjectIndexes } from "../../../utils/getAllIndexes";
 import { getArray } from "../../../utils/getArray";
 import { FlexWrapper } from "../../shared/flex-wrapper";
-import { Game, Rules, IncorrectModal, FinishModal } from "./parts";
+import { Game, Rules, IncorrectModal, FinishModal, LandscapeModal } from "./parts";
 
 import { ADDITIONAL_TRIES_AMOUNT, ANSWER, CELLS_AMOUNT, MESSAGES, TRIES_AMOUNT } from "./constants";
 
@@ -102,8 +103,6 @@ export const Screen2 = () => {
         const newLine = [...newTries[currentTry]];
         newLine[id] = {num};
         newTries[currentTry] = newLine;
-        console.log({...tries, [triesName]: [...newTries]});
-        console.log(id + 1);
         setTries(prev => ({...prev, [triesName]: [...newTries]}));
         setCurrentNumId(id + 1);
     }, [currentNumId, currentTry, hasReachAdditional, isAdditional, tries, triesName]);
@@ -126,6 +125,7 @@ export const Screen2 = () => {
         const newTries = [...tries[triesName]];
         const newLine = [...newTries[currentTry]];
         const correctNums = [];
+        let isChangedColors = false;
         newTries[currentTry] = newLine.reduce((coloredArr, n, i) => {
             let bg;
             let correct = false;
@@ -141,6 +141,7 @@ export const Screen2 = () => {
                     bg = '#45B6FC';
                 }
             }
+            isChangedColors = !!bg;
             return [...coloredArr, ({...n, bg, correct})];
         }, []).map(n => 
             (correctNums.filter((num ) => num === n.num).length === ANSWER.filter(number => number === n.num).length 
@@ -175,7 +176,7 @@ export const Screen2 = () => {
         setTimeout(() => {
             handleOpenIncorrect();
             setCurrentNumId(0);
-        }, 500);
+        }, isChangedColors ? 500 : 0);
         
         setCurrentTry(id => id + 1);
     }, [isDoneBtnActive, tries, triesName, currentTry, updateProgress, next, isAdditional, handleOpenIncorrect, hasReachAdditional]);
@@ -242,6 +243,7 @@ export const Screen2 = () => {
             {isRules && <Rules onClose={handleCloseRules} isFirstRules={isFirstRules} />}
             {incorrect.shown && <IncorrectModal text={availableMessages[incorrect.index]} onClose={handleCloseIncorrect} />}
             {isAllIncorrect && <FinishModal />}
+            {isMobile && <LandscapeModal />}
         </Wrapper>
     );
 };

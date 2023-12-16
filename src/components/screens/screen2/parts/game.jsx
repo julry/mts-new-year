@@ -20,7 +20,7 @@ const background = `
     background-size: cover;
 
     @media screen and (min-width: 400px) {
-        background-size: 400px 850px;
+        background-size: 400px 866px;
     }
 `;
 
@@ -53,9 +53,22 @@ const Line = styled.div`
 `;
 
 const ButtonsWrapper = styled.div`
+  margin-top: calc(var(--screen_padding) * 3.7);
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media screen and (max-height: 700px) {
+    margin-top: calc(var(--screen_padding) * 1.8);
+  }
+
+  @media screen and (max-height: 600px) {
+    margin-top: var(--screen_padding);
+  }
+
+  @media screen and (min-width: 640px) and (max-height: 600px) {
+    margin-top: 10px;
+  }
 `;
 
 const ButtonCell = styled(Cell)`
@@ -79,15 +92,20 @@ const ButtonsBlock = styled.div`
     max-width: calc(100% - 2 * var(--screen_padding));
     min-width: min(315px, 85vw);
 
+    @media screen and (max-height: 600px) {
+        margin-bottom: min(20px, 9vw);
+    }
+
     & button{
         position: relative;
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
 
         &::before {
             ${blurredBg};
         }
 
         @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-            backdrop-filter: blur(3px);
             &::before {
                 background: none;
                 filter: none;
@@ -100,16 +118,17 @@ const CellStyled = styled(Cell)`
     overflow: hidden;
     position: relative;
     box-shadow: 0px 0px 2px rgba(111, 137, 222, 0.23);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 
     &::before {
         ${blurredBg};
     }
 
     @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-        backdrop-filter: blur(3px);
         &::before {
             background: none;
-            filter: none;
+            filter: none; 
         }
     }
 `;
@@ -132,6 +151,14 @@ const RulesButton = styled.button`
 const GameLines = styled.div`
     min-height: calc(var(--cellWidth) * ${TRIES_AMOUNT} + var(--lineGap) * ${TRIES_AMOUNT - 1});
     margin: calc(var(--screen_padding) * 33 / 12) auto calc(var(--screen_padding) * 11 / 12);
+
+    @media screen and (max-height: 700px) {
+        margin-top: calc(var(--screen_padding) * 2);
+    }
+
+    @media screen and (max-height: 600px) {
+        margin-top: calc(var(--screen_padding) * 1.2);
+    }
 `;
 
 const AdditionalText = styled(CommonText)`

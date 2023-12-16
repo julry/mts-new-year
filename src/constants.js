@@ -38,7 +38,6 @@ export const SKILLS_INTERN = [
     {text: 'JavaScript', id: 'skill_intern_6'},
     {text: 'Kafka', id: 'skill_intern_7'},
     {text: 'Power BI', id: 'skill_intern_8'},
-    {text: 'GoLang', id: 'skill_intern_9'},
     {text: 'C#', id: 'skill_intern_10'},
     {text: 'GoLang', id: 'skill_intern_11'},
     {text: 'Протокол HTTP/S', id: 'skill_intern_12'},
@@ -65,7 +64,6 @@ export const SKILLS_JOB = [
     {text: 'JavaScript', id: 'skill_job_6'},
     {text: 'Kafka', id: 'skill_job_7'},
     {text: 'Power BI', id: 'skill_job_8'},
-    {text: 'GoLang', id: 'skill_job_9'},
     {text: 'C#', id: 'skill_job_10'},
     {text: 'GoLang', id: 'skill_job_11'},
     {text: 'Протокол HTTP/S', id: 'skill_job_12'},
@@ -88,3 +86,25 @@ export const SKILLS_JOB = [
     {text: 'Thinkcell', id: 'skill_job_29'},
     {text: 'МСФО или РСБУ', id: 'skill_job_30'},
 ];
+
+export const EMAIL_REG_EXP = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+
+export const GOOGLE_DATA = {
+    'int': {
+        url: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSeUwxPV61sw_zXSHBHdmCqY-yQ7ItPx-ut7O46j58udp7m8bg/formResponse',
+        name: 'entry.1161791459',
+        surname: 'entry.1936737489',
+        email: 'entry.559446625',
+        direction: 'entry.1523286373',
+        skills: 'entry.1404342195',
+    },
+    'job': {
+        url: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSc5nIF1SbMFYRXMy5kY3WJrnkNwQ-AzO6h98EDI3ku0jeYz1A/formResponse',
+        name: 'entry.1161791459',
+        surname: 'entry.1936737489',
+        email: 'entry.559446625',
+        direction: 'entry.1523286373',
+        skills: 'entry.1404342195',
+        exp: 'entry.1115049009',
+    }
+};

@@ -5,6 +5,7 @@ const INITIAL_PROGRESS = {
     isWin: false,
     email: '',
     isExperienced: null,
+    isEmailSend: false,
 };
 
 export function useProgressInit() {

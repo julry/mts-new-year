@@ -37,25 +37,23 @@ const LogoStyled = styled.div`
     height: min(46px, 12.4vw);
     background: url(${logo}) no-repeat 0 0 / cover;
     margin-bottom: calc(var(--screen_padding) * 1.8);
+    flex-shrink: 0;
 
     @media screen and (max-height: 700px) {
         margin-bottom: calc(var(--screen_padding) * 1.1); 
     }
+
+    @media screen and (max-height: 450px) {
+        display: none;
+    }
 `;
 
-const Composition = styled.div`
+const Composition = styled.img`
     position: absolute;
     z-index: 1;
-    inset: 0;
-    background: url(${composition}) no-repeat 0 100% / cover;
-
-    @media screen and (max-height: 700px) {
-        background-position: 0 90%;
-    }
-
-    @media screen and (max-height: 600px) {
-        background-position: 0 48%;
-    }
+    bottom: 0;
+    left: 0;
+    width: 100%;
 `;
 
 const Text = styled.p`
@@ -98,7 +96,7 @@ export const Screen1 = () => {
                 </Text>
                 <ButtonStyled onClick={next}>играть</ButtonStyled>
             </Content>
-            <Composition />
+            <Composition src={composition} alt=''/>
         </Wrapper>
     )
 }

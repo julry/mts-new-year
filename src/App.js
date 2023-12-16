@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import bg from './assets/images/bg.png';
 import { FlexWrapper } from './components/shared/flex-wrapper';
 import { ProgressProvider } from './context/ProgressContext';
 import { useProgressInit } from './hooks/useProgressInit';
@@ -22,12 +21,17 @@ const Wrapper = styled(FlexWrapper)`
   @media screen and (max-width: 300px) {
     --screen_padding: 4.3vw;
   }
+
+  @media screen and (min-width: 640px) and (max-height: 600px) {
+    --screen_padding: 12px;
+  }
 `;
 
 const ComponentWrapper = styled(FlexWrapper)`
   position: relative;
   height: 100%;
   width: 100%;
+  overflow: hidden;
 
   @media screen and (min-width: 640px) {
     max-width: 400px;
