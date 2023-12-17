@@ -19,7 +19,7 @@ const background = `
     background-position: center 0;
     background-size: cover;
 
-    @media screen and (min-width: 400px) {
+    @media screen and (min-width: 640px) {
         background-size: 400px 866px;
     }
 `;
