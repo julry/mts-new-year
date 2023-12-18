@@ -322,7 +322,9 @@ export const FinalWin = () => {
                             <RadioIconStyled/>
                                 <span>
                                 Я согласен(а) на <a rel="noreferrer" href={'https://fut.ru/personal_data_policy/'} target="_blank">
-                                обработку персональных данных</a> и получение информационных сообщений
+                                обработку персональных данных</a> и получение информационных сообщений, а также с 
+                                <a rel="noreferrer" href={'https://fut.ru/personal_data_policy/'} target="_blank">
+                                правилами проведения акции</a>.
                             </span>
                         </RadioButtonLabel>
                         <ButtonStyled 
