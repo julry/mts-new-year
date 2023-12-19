@@ -97,7 +97,7 @@ export const Screen5 = () => {
                     Молодец, первый шаг уже сделан.
                 </Text>
                 <SendDataModal>Данные отправлены!</SendDataModal>
-                <ButtonStyled onClick={handleClose}>хохохо</ButtonStyled>
+                <ButtonStyled onClick={handleClose}>хо-хо-хо</ButtonStyled>
             </Content>
             <Composition src={composition} alt=''/>
         </Wrapper>
