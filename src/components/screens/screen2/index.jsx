@@ -131,14 +131,14 @@ export const Screen2 = () => {
             let correct = false;
             if (ANSWER.includes(n.num)) {
                 if (getAllIndexes(ANSWER, n.num).includes(i)) {
-                    bg = 'var(--main_red)';
+                    bg = '#45B6FC';
                     correct = true;
                     correctNums.push(n.num);
                 } else if (
                     getAllObjectIndexes(newLine, 'num', n.num).includes(i) 
                     && ANSWER.filter(number => number === n.num).length > coloredArr.filter(({ num }) => num === n.num).length
                 ) {
-                    bg = '#45B6FC';
+                    bg = 'var(--main_red)';
                 }
             }
             isChangedColors = !!bg;

@@ -2,10 +2,10 @@ import styled from "styled-components";
 import bg from "../../assets/images/bgSnow.png";
 import logo from "../../assets/images/logo.svg";
 import composition from "../../assets/images/composition.png";
-import { useProgress } from "../../hooks/useProgress";
 import { ButtonCentered } from "../shared/button";
 import { Title } from "../shared/common-text";
 import { FlexWrapper } from "../shared/flex-wrapper";
+import { SendModal } from "../shared/send-modal";
 
 const Wrapper = styled(FlexWrapper)`
     width: 100%;
@@ -54,14 +54,6 @@ const Composition = styled.img`
     bottom: 0;
     left: 0;
     width: 100%;
-
-    @media screen and (max-height: 700px) {
-        bottom: -30px;
-    }
-
-    @media screen and (max-height: 650px) {
-        bottom: -45px;
-    }
 `;
 
 const Text = styled.p`
@@ -79,32 +71,35 @@ const Text = styled.p`
     }
 `;
 
-export const Screen1 = () => {
-    const { next } = useProgress();
+const SendDataModal = styled(SendModal)`
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding-top: calc(var(--screen_padding) * 5 / 6);
+`;
+
+
+export const Screen5 = () => {
+    const handleClose = () => {
+        window.open('','_self').close()
+    };
 
     return (
         <Wrapper>
             <LogoStyled />
             <Content>
                 <Title>
-                    Весь год мечтал об идеальной работе?
+                    Всё в твоих руках
                 </Title>
                 <Text>
-                    Пришло время исполнить желание! 
+                    Верить в чудеса — прекрасно, но действовать — ещё лучше, ведь ты можешь исполнить все мечты сам.
                     <br/>
                     <br/>
-                    МТС тебе в этом поможет — у нас есть секретный адрес Деда Мороза. 
-                    Давай вместе поверим в чудо? Загадай свою работу мечты и отправь ему письмо. 
-                    Да, не юзерфрендли, зато олдскульно!
-                    <br/>
-                    <br/>
-                    Только сначала надо разгадать индекс, сыграв в игру. Самых находчивых и упорных 
-                    ждёт розыгрыш призов: подписка на цифровые сервисы МТС, крутой мерч или новогодний сладкий подарок. 
-                    А ещё лучше — возможность присоединиться к команде МТС!
+                    Молодец, первый шаг уже сделан.
                 </Text>
-                <ButtonStyled onClick={next}>играть</ButtonStyled>
+                <SendDataModal>Данные отправлены!</SendDataModal>
+                <ButtonStyled onClick={handleClose}>хохохо</ButtonStyled>
             </Content>
             <Composition src={composition} alt=''/>
         </Wrapper>
-    )
+    );
 }

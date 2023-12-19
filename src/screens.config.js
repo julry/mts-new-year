@@ -10,6 +10,7 @@ import redBall from './assets/images/redBall.png';
 import stars from './assets/images/stars.png';
 import composition from './assets/images/headerComposition.png';
 import formBg from './assets/images/formBg.png';
+import { Screen5 } from "./components/screens/screen5";
 
 export const screens = [
     {
@@ -29,5 +30,9 @@ export const screens = [
     {
         id: 3,
         component: Screen4
+    },
+    {
+        id: 4,
+        component: Screen5
     }
 ];

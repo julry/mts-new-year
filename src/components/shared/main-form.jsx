@@ -150,14 +150,9 @@ const SendEmailModal = styled(SendModal)`
     }
 `;
 
-const SendDataModal = styled(SendModal)`
-    top: 50%;
-    transform: translate(-50%, -50%);
-`;
-
 
 export const MainForm = () => {
-    const { isExperienced, progress } = useProgress();
+    const { isExperienced, progress, next } = useProgress();
 
     const [isCorrectEmail, setIsCorrectEmail] = useState(true);
     const [isInfo, setIsInfo] = useState(true);
@@ -228,6 +223,7 @@ export const MainForm = () => {
 
         fetch(myRequest).then(() => {
             setIsSend(true);
+            next();
         }).finally(() => {
             setIsSending(false);
         });
@@ -319,11 +315,6 @@ export const MainForm = () => {
                         <ModalButton onClick={() => setIsInfo(false)}>заполнить</ModalButton>
                     </Modal>
                     {isSendEmailModalShown && <SendEmailModal>Почта отправлена!</SendEmailModal>}
-                </ModalWrapper>
-            )}
-            {isSend && (
-                <ModalWrapper>
-                    <SendDataModal>Данные отправлены!</SendDataModal>
                 </ModalWrapper>
             )}
         </>
