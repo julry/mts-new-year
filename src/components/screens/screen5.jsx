@@ -96,13 +96,13 @@ export const Screen5 = () => {
                     Всё в твоих руках
                 </Title>
                 <Text>
-                    Верить в чудеса — прекрасно, но действовать — ещё лучше, ведь ты можешь исполнить все мечты сам.
+                    Верить в чудеса — прекрасно, но действовать — ещё лучше, ведь ты можешь исполнить все мечты самостоятельно.
                     <br/>
                     <br/>
                     Молодец, первый шаг уже сделан.
                 </Text>
                 <SendDataModal>Данные отправлены!</SendDataModal>
-                <ButtonStyled onClick={handleClose}>хо-хо-хо</ButtonStyled>
+                {/* <ButtonStyled onClick={handleClose}>хо-хо-хо</ButtonStyled> */}
             </Content>
             <Composition src={composition} alt=''/>
         </Wrapper>
