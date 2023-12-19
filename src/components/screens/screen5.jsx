@@ -75,6 +75,11 @@ const SendDataModal = styled(SendModal)`
     top: 50%;
     transform: translate(-50%, -50%);
     padding-top: calc(var(--screen_padding) * 5 / 6);
+    @media screen and (max-height: 550px) {
+        position: static;
+        transform: none;
+        margin: calc(var(--screen_padding) * 1.2) auto calc(var(--screen_padding) * 2 / 3);
+    }
 `;
 
 
