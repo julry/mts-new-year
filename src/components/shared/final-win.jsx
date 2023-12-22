@@ -1,8 +1,11 @@
+import { useRef } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import bg from '../../assets/images/bgWin.png';
 import { EMAIL_REG_EXP } from "../../constants";
 import { useProgress } from "../../hooks/useProgress"
+import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
 import { ButtonCentered } from "./button";
 import { CommonText, Title } from "./common-text";
 import { ExperienceRadio } from "./experience-radio";
@@ -217,6 +220,7 @@ export const FinalWin = () => {
     const [isSend, setIsSend] = useState(false);
     const [isCorrect, setIsCorrect] = useState(true);
     const [isAgreed, setIsAgreed] = useState(false);
+    const $isMetrika = useRef(false);
 
     const handleSendData = () => {
         if (isSending || isSend) return;
@@ -243,7 +247,12 @@ export const FinalWin = () => {
             if (typeof isExperienced === 'boolean') updateProgress({isEmailSend: true});
         }).finally(() => {
             setIsSending(false);
-            if (typeof isExperienced === 'boolean') next();
+            if (typeof isExperienced === 'boolean'){
+                reachMetrikaGoal(`mail_${isExperienced ? 'exp' : 'noexp'}`);
+                next();
+            } else {
+                reachMetrikaGoal('mail');
+            }
         });
     };
 
@@ -264,6 +273,20 @@ export const FinalWin = () => {
         if (isSending || isSend) return;
         setIsAgreed(prevAgreed => !prevAgreed);
     }
+
+    useEffect(() => {
+        if (!$isMetrika.current) {
+            reachMetrikaGoal('win');
+            $isMetrika.current = true;
+        };
+    }, []);
+
+    const handleNext = () => {
+        if (typeof isExperienced === 'boolean'){
+            reachMetrikaGoal(`win_${isExperienced ? 'exp' : 'noexp'}`);
+            next();
+        }
+    };
 
     return (
         <Wrapper>
@@ -305,7 +328,7 @@ export const FinalWin = () => {
                 {isSend ? (
                     <ButtonStyled 
                         type="main" 
-                        onClick={next}
+                        onClick={handleNext}
                         disabled={typeof isExperienced !== 'boolean'}
                     >
                         перейти

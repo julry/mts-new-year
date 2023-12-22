@@ -16,6 +16,7 @@ import { ButtonCentered } from "./button";
 import { useRef } from "react";
 import { SendModal } from "./send-modal";
 import { useMemo } from "react";
+import { reachMetrikaGoal } from "../../utils/reachMetrikaGoal";
 
 const Bg = styled.div`
     position: absolute;
@@ -167,6 +168,7 @@ export const MainForm = () => {
     const [isSendEmailModalShown, setIsSendEmailModalShown] = useState(progress.isEmailSend); 
 
     const $timeoutRef = useRef();
+    const $isMetrika = useRef(false);
 
     const text = `Заполни короткую анкету, чтобы попасть ${isExperienced ? 'в команду ' : 'на стажировку в '}МТС. ` +
     'Помощники Деда Мороза по поиску талантов ознакомятся с ней. Если твои навыки подходят ' +
@@ -192,6 +194,8 @@ export const MainForm = () => {
 
     const handleSendData = () => {
         if (isSending || isSend) return;
+
+        reachMetrikaGoal('send');
 
         const { 
             url, 
@@ -242,6 +246,13 @@ export const MainForm = () => {
         setEmail(e.target.value);
     };
 
+
+    useEffect(() => {
+        if (!$isMetrika.current) {
+            reachMetrikaGoal('form');
+            $isMetrika.current = true;
+        };
+    }, []);
 
     return (
         <>
@@ -299,7 +310,7 @@ export const MainForm = () => {
                 />
                 {isExperienced && (
                     <>
-                        <Label>Опыт работы на каких позициях у тебя есть</Label>
+                        <Label>На каких позициях у тебя есть опыт работы</Label>
                         <TextArea 
                             value={exp}
                             onChange={(e) => setExp(e.target.value)}

@@ -6,6 +6,7 @@ import { useProgress } from "../../hooks/useProgress";
 import { ButtonCentered } from "../shared/button";
 import { Title } from "../shared/common-text";
 import { FlexWrapper } from "../shared/flex-wrapper";
+import { reachMetrikaGoal } from '../../utils/reachMetrikaGoal';
 
 const Wrapper = styled(FlexWrapper)`
     width: 100%;
@@ -82,6 +83,11 @@ const Text = styled.p`
 export const Screen1 = () => {
     const { next } = useProgress();
 
+    const handleNext = () => {
+        reachMetrikaGoal('start');
+        next();
+    };
+
     return (
         <Wrapper>
             <LogoStyled />
@@ -102,7 +108,7 @@ export const Screen1 = () => {
                     ждёт розыгрыш призов: подписка на цифровые сервисы МТС, крутой мерч или новогодний сладкий подарок. 
                     А ещё лучше — возможность присоединиться к команде МТС!
                 </Text>
-                <ButtonStyled onClick={next}>играть</ButtonStyled>
+                <ButtonStyled onClick={handleNext}>играть</ButtonStyled>
             </Content>
             <Composition src={composition} alt=''/>
         </Wrapper>

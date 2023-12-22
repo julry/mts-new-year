@@ -72,26 +72,26 @@ const BigImage = styled.img`
 `;
 
 const Star = styled(BigImage)`
-  min-width: 350px;
-  min-height: 331px;
-  left: calc(50% - 6vw);
+  min-width: 230px;
+  min-height: 260px;
+  left: calc(50% - 20vw);
   transform: translateX(-100%);
   top: 17.5%;
-  width: 30vw;
+  width: 22.4vw;
   max-width: 868px;
-  height: 31.8vw;
+  height: 25.4vw;
   max-height: 916px;
 `;
 
 const Cone = styled(BigImage)`
-  min-width: 371px;
-  min-height: 350px;
-  right: calc(50% - 12vw);
+  min-width: 223px;
+  min-height: 297px;
+  right: calc(50% - 22vw);
   transform: translateX(100%);
   bottom: 5.8%;
-  width: 36.9vw;
+  width: 21vw;
   max-width: 920px;
-  height: 38.6vw;
+  height: 29vw;
   max-height: 968px;
 `;
 

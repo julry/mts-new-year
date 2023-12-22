@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useProgress } from "../../../../hooks/useProgress";
+import { reachMetrikaGoal } from "../../../../utils/reachMetrikaGoal";
 import { ExperienceRadio } from "../../../shared/experience-radio";
 import { Modal, ModalWrapper, ModalText, ModalButton } from "../../../shared/modal-parts";
 
@@ -18,6 +19,12 @@ const RadioBlock = styled(ExperienceRadio)`
 
 export const FinishModal = () => {
     const {next, isExperienced} = useProgress();
+
+    const handleNext = () => {
+        reachMetrikaGoal(`lose_${isExperienced ? 'exp' : 'noexp'}`);
+        next();
+    };
+
     return (
         <ModalWrapper>
             <Modal>
@@ -33,7 +40,7 @@ export const FinishModal = () => {
                         Не обязательно ждать волшебства от Деда Мороза, ведь ты можешь создать его самостоятельно — в МТС!
                     </ModalText>
                     <RadioBlock />
-                    <ModalButton disabled={typeof isExperienced !== "boolean"} onClick={next}>Хочу в мтс</ModalButton>
+                    <ModalButton disabled={typeof isExperienced !== "boolean"} onClick={handleNext}>Хочу в мтс</ModalButton>
                 </IncorrectBlock>
             </Modal>
         </ModalWrapper>

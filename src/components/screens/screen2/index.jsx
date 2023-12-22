@@ -8,6 +8,7 @@ import { FlexWrapper } from "../../shared/flex-wrapper";
 import { Game, Rules, IncorrectModal, FinishModal, LandscapeModal } from "./parts";
 
 import { ADDITIONAL_TRIES_AMOUNT, ANSWER, CELLS_AMOUNT, MESSAGES, TRIES_AMOUNT } from "./constants";
+import { reachMetrikaGoal } from "../../../utils/reachMetrikaGoal";
 
 const Wrapper = styled(FlexWrapper)`
     width: 100%;
@@ -90,7 +91,10 @@ export const Screen2 = () => {
     ), [tries, triesName, currentTry, hasReachAdditional, isAdditional]);
 
     const handleCloseRules = () => {
-        if (isFirstRules) setIsFirstRules(false);
+        if (isFirstRules) {
+            reachMetrikaGoal('training');
+            setIsFirstRules(false);
+        }
 
         setIsRules(false);
     };
@@ -160,12 +164,16 @@ export const Screen2 = () => {
             setCurrentNumId(0);
             if (isAdditional){
                 setIsAllIncorrect(true);
+                reachMetrikaGoal('lose');
                 return;
             }
 
             setTimeout(() => {
                 handleOpenIncorrect();
-                if (!hasReachAdditional) setHasReachAdditional(true);
+                if (!hasReachAdditional) {
+                    setHasReachAdditional(true);
+                    reachMetrikaGoal('check');
+                }
                 setIsAdditional(true);
                 setCurrentTry(0);
             }, 500);
