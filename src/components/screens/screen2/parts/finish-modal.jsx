@@ -37,7 +37,7 @@ export const FinishModal = () => {
                 </IncorrectBlock>
                 <IncorrectBlock>
                     <ModalText>
-                        Не обязательно ждать волшебства от Деда Мороза, ведь ты можешь создать его самостоятельно — в МТС!
+                        Но не нужно ждать особенного случая для волшебства — в МТС ты можешь создать его самостоятельно!
                     </ModalText>
                     <RadioBlock />
                     <ModalButton disabled={typeof isExperienced !== "boolean"} onClick={handleNext}>Хочу в мтс</ModalButton>

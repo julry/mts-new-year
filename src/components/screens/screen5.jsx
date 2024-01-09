@@ -2,7 +2,6 @@ import styled from "styled-components";
 import bg from "../../assets/images/bgSnow.png";
 import logo from "../../assets/images/logo.svg";
 import composition from "../../assets/images/composition.png";
-import { ButtonCentered } from "../shared/button";
 import { Title } from "../shared/common-text";
 import { FlexWrapper } from "../shared/flex-wrapper";
 import { SendModal } from "../shared/send-modal";
@@ -24,10 +23,6 @@ const Content = styled(FlexWrapper)`
     z-index: 4;
     flex-shrink: 0;
     flex-grow: 1;
-`;
-
-const ButtonStyled = styled(ButtonCentered)`
-    margin-top: auto;
 `;
 
 const LogoStyled = styled.div`
@@ -84,10 +79,6 @@ const SendDataModal = styled(SendModal)`
 
 
 export const Screen5 = () => {
-    const handleClose = () => {
-        window.open('','_self').close()
-    };
-
     return (
         <Wrapper>
             <LogoStyled />
@@ -102,7 +93,6 @@ export const Screen5 = () => {
                     Молодец, первый шаг уже сделан.
                 </Text>
                 <SendDataModal>Данные отправлены!</SendDataModal>
-                {/* <ButtonStyled onClick={handleClose}>хо-хо-хо</ButtonStyled> */}
             </Content>
             <Composition src={composition} alt=''/>
         </Wrapper>
